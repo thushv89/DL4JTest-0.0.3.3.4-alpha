@@ -1,0 +1,8 @@
+*.txt
+*.html
+build.xml
+manifest.mf
+/logs/
+/dist/
+/build/
+/nbproject/private/
