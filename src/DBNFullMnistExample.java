@@ -37,18 +37,19 @@ public class DBNFullMnistExample {
         Nd4j.dtype = DataBuffer.Type.FLOAT;
 
         log.info("Load data....");
-        DataSetIterator iter = new MnistDataSetIterator(100,5000);
+        DataSetIterator iter = new MnistDataSetIterator(500,5000);
         
         log.info("Build model....");
         MultiLayerConfiguration conf = new NeuralNetConfiguration.Builder()
                 .layer(new RBM())
                 .nIn(784)
                 .nOut(10)
+                .activationFunction("sigmoid")
                 .weightInit(WeightInit.DISTRIBUTION)
                 .dist(new NormalDistribution(0, 1))
                 .constrainGradientToUnitNorm(true)
                 .iterations(5)
-                .lossFunction(LossFunctions.LossFunction.SQUARED_LOSS)
+                .lossFunction(LossFunctions.LossFunction.RMSE_XENT)
                 .learningRate(1e-1f)
                 .momentum(0.5)
                 .momentumAfter(Collections.singletonMap(3, 0.9))
